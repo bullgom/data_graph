@@ -1,4 +1,4 @@
-from typing import Any, Callable, List, TypeVar
+from typing import Any, Callable, List, TypeVar, NoReturn
 
 from .data_node import BaseDataNode, DataNode, RootDataNode
 
@@ -32,21 +32,18 @@ class DataGraph:
         for node in self.nodes:
             node.reset()
 
-    def find(self, name: str) -> BaseDataNode | None:
+    def find(self, name: str) -> BaseDataNode | NoReturn:
         for node in self.nodes:
             if node.name == name:
                 return node
 
-        return None
+        raise ValueError(f"{name} doesn't exist")
 
-    def get(self, name: str) -> Any:
-        if (node := self.find(name)) is None:
-            raise ValueError(f"{name} doesn't exist")
-
-        return node.port.data
+    def data_of(self, name: str) -> Any:
+        return self.find(name).port.data
 
     def __getitem__(self, name: str) -> BaseDataNode:
-        if (node := self.find(name)) is None:
-            raise ValueError(f"{name} doesn't exist")
+        return self.find(name)
 
-        return node
+    def put(self, name: str, value: Any) -> None:
+        self.find(name).put

@@ -32,11 +32,6 @@ class DataNode(BaseDataNode, Receiver):
 
         self.propagate()
 
-    # TODO i don't know what to do with this
-    def put(self, data: T) -> None:
-        self.port.put(data)
-        self.propagate()
-
     def ready(self) -> bool:
         return self.checker.ready()
 

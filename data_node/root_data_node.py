@@ -3,6 +3,5 @@ from .base_data_node import BaseDataNode
 
 
 class RootDataNode(BaseDataNode):
-    def put(self, data: Any) -> None:
-        self.port.put(data)
-        self.propagate()
+    """Can only be used as input with `put`"""
+    pass

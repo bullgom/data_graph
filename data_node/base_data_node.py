@@ -1,9 +1,9 @@
+from abc import abstractmethod
 from typing import Generic, List, TypeVar
 
-
-from .receiver import Receiver
 from .base_class import BaseClass
 from .port import Port
+from .receiver import Receiver
 
 T = TypeVar("T")
 
@@ -26,3 +26,7 @@ class BaseDataNode(BaseClass, Generic[T]):
         for receiver in self.receivers:
             if receiver.ready():
                 receiver.generate()
+
+    def put(self, data: T) -> None:
+        self.port.put(data)
+        self.propagate()
