@@ -43,3 +43,4 @@ generated from external source
 ## Future Work
 
 - Making the arguments for generating functions as key word arguments
+- Lazy evaluation. When asked for a data, follow the graph up to root nodes and evaluate each in turn
