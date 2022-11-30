@@ -1,16 +1,26 @@
+from typing import List
 from typing_extensions import Self
 
-from .data_generator import DataGenerator, GeneratingFunction
+from .data_generator import DataGenerator, GeneratingFunction, T
 from .requirement_checker import RequirementChecker
 from .base_data_node import BaseDataNode
 from .receiver import Receiver
 
 
 class DataNode(BaseDataNode, Receiver):
-    def __init__(self, name: str, generator_function: GeneratingFunction) -> None:
+    def __init__(
+        self,
+        name: str,
+        generator_function: GeneratingFunction,
+        requirements: List[BaseDataNode] = None,
+    ) -> None:
         super().__init__(name)
         self.checker = RequirementChecker()
         self.generator = DataGenerator(generator_function)
+
+        if requirements:
+            for req in requirements:
+                self.checker.requires(req.port)
 
     def requires(self, data_node: Self) -> None:
         self.checker.requires(data_node.port)
@@ -20,6 +30,11 @@ class DataNode(BaseDataNode, Receiver):
         data = self.generator.generate(self.checker.gather_data())
         self.port.put(data)
 
+        self.propagate()
+
+    # TODO i don't know what to do with this
+    def put(self, data: T) -> None:
+        self.port.put(data)
         self.propagate()
 
     def ready(self) -> bool:
