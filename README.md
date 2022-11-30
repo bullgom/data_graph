@@ -21,14 +21,18 @@ A data structure to manage a graph of data dependencies
 
 - A node should be able to generate multiple data? No!
 - A receiver node should connect to one generator node at a time
+- Base structure should be Directed Acyclic Graph
 
 ## Terminologies
 
 - DataNode composed of
   - RequirementChecker: Has a `callback(data_name)` which registers the generated
-  data and when all the requirements are met, calls the `data_generator.generate(requirements)`
+  data
   - DataGenerator: Holds the logics for generating data
   - Port: Where the generated data resides
+    - Dependes on RequirementChecker
+
+  should call `data_generator.generate(requirements)` when all the requirements are met
 
 - RootDataNode: Instead of other node generting data, this node's data is
 generated from external source
