@@ -39,3 +39,7 @@
 - RootDataNode: Instead of other node generting data, this node's data is
 generated from external source
   - `put` method: A data is given by external mechanism
+
+## Future Work
+
+- Making the arguments for generating functions as key word arguments
