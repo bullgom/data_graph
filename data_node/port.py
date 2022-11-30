@@ -1,8 +1,10 @@
 from .base_class import BaseClass
-from typing import Any
+from typing import Generic, TypeVar
+
+T = TypeVar("T")
 
 
-class Port(BaseClass):
+class Port(BaseClass, Generic[T]):
     """Holds the generated data"""
 
     def __init__(self) -> None:
@@ -10,11 +12,11 @@ class Port(BaseClass):
         self.reset()
 
     @property
-    def data(self) -> Any:
+    def data(self) -> T:
         return self._data
 
-    def put(self, data: Any) -> None:
+    def put(self, data: T) -> None:
         self._data = data
 
     def reset(self) -> None:
-        self._data: Any | None = None
+        self._data: T | None = None

@@ -1,4 +1,4 @@
-from typing import List
+from typing import Tuple
 from typing_extensions import Self
 
 from .data_generator import DataGenerator, GeneratingFunction, T
@@ -12,7 +12,7 @@ class DataNode(BaseDataNode, Receiver):
         self,
         name: str,
         generator_function: GeneratingFunction,
-        requirements: List[BaseDataNode] = None,
+        *requirements: BaseDataNode,
     ) -> None:
         super().__init__(name)
         self.checker = RequirementChecker()
