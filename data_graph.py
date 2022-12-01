@@ -1,4 +1,4 @@
-from typing import Any, Callable, List, TypeVar, NoReturn
+from typing import Any, Callable, List, NoReturn, Tuple, TypeVar
 
 from .data_node import BaseDataNode, DataNode, RootDataNode
 
@@ -39,6 +39,9 @@ class DataGraph:
 
         raise ValueError(f"{name} doesn't exist")
 
+    def datas_of(self, *names: str) -> Tuple[Any]:
+        return tuple(map(self.data_of, names))
+
     def data_of(self, name: str) -> Any:
         return self.find(name).port.data
 
@@ -46,4 +49,4 @@ class DataGraph:
         return self.find(name)
 
     def put(self, name: str, value: Any) -> None:
-        self.find(name).put
+        self.find(name).put(value)
