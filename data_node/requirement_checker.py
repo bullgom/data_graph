@@ -19,4 +19,4 @@ class RequirementChecker(BaseClass):
         return
 
     def gather_data(self) -> Any:
-        return [port.data for port in self.requirements]
+        return (port.data for port in self.requirements)

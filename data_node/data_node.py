@@ -20,14 +20,14 @@ class DataNode(BaseDataNode, Receiver):
 
         if requirements:
             for req in requirements:
-                self.checker.requires(req.port)
+                self.requires(req)
 
     def requires(self, data_node: Self) -> None:
         self.checker.requires(data_node.port)
         data_node.register_node(self)
 
     def generate(self) -> None:
-        data = self.generator.generate(self.checker.gather_data())
+        data = self.generator.generate(*self.checker.gather_data())
         self.port.put(data)
 
         self.propagate()
@@ -38,4 +38,4 @@ class DataNode(BaseDataNode, Receiver):
     def reset(self) -> None:
         super().reset()
         self.checker.reset()
-        self.generator()
+        self.generator.reset()

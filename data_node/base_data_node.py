@@ -30,3 +30,6 @@ class BaseDataNode(BaseClass, Generic[T]):
     def put(self, data: T) -> None:
         self.port.put(data)
         self.propagate()
+
+    def __repr__(self) -> str:
+        return f"BaseDataNode({self.name})"

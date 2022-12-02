@@ -22,7 +22,7 @@ class DataGraph:
         if (f is None) and (not requirements):
             node = RootDataNode(name)
         elif (f is not None) and (requirements):
-            node = DataNode(name, f, requirements)
+            node = DataNode(name, f, *requirements)
         else:
             raise TypeError("Not possible combination")
         self.add_node(node)
