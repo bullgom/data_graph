@@ -16,7 +16,7 @@ class DataGraph:
     def new(
         self,
         name: str,
-        f: Callable[..., T] = None,
+        f: Callable[..., T] | None = None,
         *requirements: BaseDataNode,
     ) -> BaseDataNode:
         if (f is None) and (not requirements):
